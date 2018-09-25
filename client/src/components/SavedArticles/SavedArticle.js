@@ -15,7 +15,7 @@ export default class SavedArticle extends Component {
                     </div>
                 </div>
                 <div className="card-footer">
-                    <p className="byline">{this.props.byline}</p><p id={this.props.id} onClick={this.props.deleteArticle} className="btn btn-dark saveBtn">DELETE</p>
+                    <p className="byline">{this.props.byline}</p>{this.props.btn}
                 </div>
             </div>
         )

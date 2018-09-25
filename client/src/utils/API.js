@@ -19,16 +19,12 @@ export default {
         snippet: data.snippet,
         author: data.author
       })
-      .then(function (response) {
-        console.log(response.data);
-      })
       .catch(function (error) {
         console.log(error);
       })
     )
   },
-  delete: data => {
-    const id = data.id;
+  delete: id => {
     axios.delete(`/api/articles/${id}`)
   }
 };

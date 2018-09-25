@@ -5,3 +5,9 @@ body {
   padding: 0;
   font-family: 'Montserrat', sans-serif;
 }
+form {
+  margin-bottom: 50px;
+}
+.card {
+  margin: 25px;
+}
