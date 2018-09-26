@@ -114,6 +114,7 @@ export default class App extends Component {
                 </div>
             </Column>
             <Column size="lg-4">
+              <h3 className="heading">Saved Articles</h3>
               {this.state.savedArticles.length ? (
                 <div>
                   {this.state.savedArticles.map((savedArticle, i) => {

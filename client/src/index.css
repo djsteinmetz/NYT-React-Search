@@ -8,6 +8,6 @@ body {
 form {
   margin-bottom: 50px;
 }
-.card {
+.card, .heading {
   margin: 25px;
 }
