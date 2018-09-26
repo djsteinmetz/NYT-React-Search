@@ -11,12 +11,13 @@ import SavedArticle from './components/SavedArticles';
 
 export default class App extends Component {
   state = {
+    message: "Search for Articles!",
     search: "",
     records: 1,
     startYear: "",
     endYear: "",
     articles: [],
-    emptySearch: "",
+    note: "",
     savedArticles: []
   }
   componentWillMount() {
@@ -33,16 +34,18 @@ export default class App extends Component {
     let { name, value } = event.target;
     this.setState({
       [name]: value,
-      emptySearch: ""
+      message: ""
     })
   }
   // Once you have 1 failed search, they all fail?
   searchArticles = event => {
     event.preventDefault();
     let query = this.state.search;
+    console.log(query)
     API.search(query)
       .then(results => {
-        results.data.response.docs.length ? (this.setState({ articles: results.data.response.docs })) : (this.setState({ articles: [], emptySearch: "No results to display, try another search" }))
+        console.log(results.data.response.docs)
+        results.data.response.docs.length ? (this.setState({ articles: results.data.response.docs })) : (this.setState({ articles: [], message: "No results to display, try another search" }))
       })
       .catch(err => { console.log(err) })
     this.loadArticles()
@@ -56,7 +59,8 @@ export default class App extends Component {
       url: selectedArticle[0].web_url,
       headline: selectedArticle[0].headline.main,
       snippet: selectedArticle[0].snippet,
-      author: (selectedArticle[0].byline ? selectedArticle[0].byline.original : 'No author documented')
+      author: (selectedArticle[0].byline ? selectedArticle[0].byline.original : 'No author documented'),
+      note: this.state.note
     }
     console.log(data)
     API.save(data).then(() => { this.loadArticles() })
@@ -74,6 +78,7 @@ export default class App extends Component {
           <Row>
             <Column size="lg-8">
               <form>
+                <h3>{this.state.message}</h3>
                 <label>Search Term</label>
                 <Input type="text" name="search" placeholder="Article Topic" onChange={this.handleChange} value={this.state.search} />
                 <label>Nuber of Records to Retrieve:</label>
@@ -101,6 +106,7 @@ export default class App extends Component {
                           snippet={article.snippet}
                           byline={(article.byline ? article.byline.original : 'No author documented')}
                           save={<FormBtn id={article._id} onClick={this.saveArticle}>Save Article</FormBtn>}
+                          textArea={<textarea onChange={this.handleChange} name="note" className="form-control" id="note" rows="3"></textarea>}
                         />
                       </div>
                     )
@@ -120,6 +126,8 @@ export default class App extends Component {
                         byline={savedArticle.author}
                         btn={<DeleteBtn id={savedArticle._id} onClick={this.deleteArticle} />}
                         id={savedArticle._id}
+                        note={savedArticle.note}
+                        date={savedArticle.date}
                       />
                     )
                   })}

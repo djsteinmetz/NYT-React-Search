@@ -19,3 +19,6 @@ a:hover {
 .byline {
     float: left;
 }
+textarea {
+    font-weight: 100;
+}

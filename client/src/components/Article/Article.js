@@ -11,10 +11,14 @@ const Article = props => {
                 <div className="card-text">
                     <p>{props.snippet}</p>
                 </div>
+                <div className="form-group">
+                    <label>Add a note</label>
+                    {props.textArea}
+                </div>
             </div>
             <div className="card-footer text-muted">
                 <p className="byline">{props.byline}</p>{props.save}
-            </div>           
+            </div>
         </div>
     )
 }

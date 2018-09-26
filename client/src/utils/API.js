@@ -17,7 +17,8 @@ export default {
         url: data.url,
         headline: data.headline,
         snippet: data.snippet,
-        author: data.author
+        author: data.author,
+        note: data.note
       })
       .catch(function (error) {
         console.log(error);

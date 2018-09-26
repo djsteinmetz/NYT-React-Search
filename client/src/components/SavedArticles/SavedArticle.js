@@ -10,6 +10,8 @@ const SavedArticle = props => {
             <div className="card-body">
                 <div className="card-text">
                     <p>{props.snippet}</p>
+                    <p className="note">{props.note ? (`NOTE: ${props.note}`) : ("There are no notes for this article")}</p>
+                    <p>Date saved: {props.date}</p>
                 </div>
             </div>
             <div className="card-footer text-muted">
