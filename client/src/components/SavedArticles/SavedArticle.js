@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './SavedArticle.css';
 
-export default class SavedArticle extends Component {
-
-    render() {
-        return (
-            <div className="card">
-                <div className="card-body">
-                    <div className="card-title">
-                        <a className="articleTitle" href={this.props.url} target="_blank">{this.props.headline}</a>
-                    </div>
-                    <div className="card-text">
-                        <p>{this.props.snippet}</p>
-                    </div>
-                </div>
-                <div className="card-footer">
-                    <p className="byline">{this.props.byline}</p>{this.props.btn}
+const SavedArticle = props => {
+    return (
+        <div className="card">
+            <div className="card-header">
+                <a className="articleTitle" href={props.href} target="_blank">{props.headline}</a>
+            </div>
+            <div className="card-body">
+                <div className="card-text">
+                    <p>{props.snippet}</p>
                 </div>
             </div>
-        )
-    }
+            <div className="card-footer text-muted">
+                <p className="byline">{props.byline}</p>{props.btn}
+            </div>
+        </div>
+    )
 }
+export default SavedArticle

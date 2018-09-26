@@ -36,6 +36,7 @@ export default class App extends Component {
       emptySearch: ""
     })
   }
+  // Once you have 1 failed search, they all fail?
   searchArticles = event => {
     event.preventDefault();
     let query = this.state.search;
@@ -44,6 +45,7 @@ export default class App extends Component {
         results.data.response.docs.length ? (this.setState({ articles: results.data.response.docs })) : (this.setState({ articles: [], emptySearch: "No results to display, try another search" }))
       })
       .catch(err => { console.log(err) })
+    this.loadArticles()
   }
   saveArticle = event => {
     event.preventDefault();
@@ -57,15 +59,12 @@ export default class App extends Component {
       author: (selectedArticle[0].byline ? selectedArticle[0].byline.original : 'No author documented')
     }
     console.log(data)
-    API.save(data)
-    this.loadArticles()
+    API.save(data).then(() => { this.loadArticles() })
   }
   deleteArticle = event => {
     event.preventDefault();
     let { id } = event.target
-    console.log(id)
-    API.delete(id)
-    this.loadArticles()
+    API.delete(id).then(() => { this.loadArticles() })
   }
   render() {
     return (
@@ -118,7 +117,7 @@ export default class App extends Component {
                         href={savedArticle.url}
                         headline={savedArticle.headline}
                         snippet={savedArticle.snippet}
-                        byline={savedArticle.byline}
+                        byline={savedArticle.author}
                         btn={<DeleteBtn id={savedArticle._id} onClick={this.deleteArticle} />}
                         id={savedArticle._id}
                       />
