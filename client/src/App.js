@@ -54,7 +54,6 @@ export default class App extends Component {
   saveArticle = event => {
     event.preventDefault();
     let { id } = event.target;
-    this.state.saved.push(id)
     let selectedArticle = this.state.articles.filter(article => id === article._id)
     // Remove the selected Article from the current Articles state (to remove it from the list)
     for( var i = 0; i < this.state.articles.length-1; i++){ 
