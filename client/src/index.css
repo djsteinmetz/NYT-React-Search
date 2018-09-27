@@ -11,3 +11,9 @@ form {
 .card, .heading {
   margin: 25px;
 }
+[data-icon='save'] {
+  float: right;
+  margin-left: 5px;
+  color: #219653;
+  font-size: 2rem;
+}

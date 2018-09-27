@@ -3,7 +3,8 @@ let BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=
 
 export default {
   search: query => {
-    const url = BASEURL+=query
+    let q = query.query.replace(" ", "+");
+    const url = `${BASEURL}${q}+${query.start}+${query.end}`
     return axios.get(url);
   },
   getArticles: () => { 

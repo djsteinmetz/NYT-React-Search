@@ -17,7 +17,7 @@ const Article = props => {
                 </div>
             </div>
             <div className="card-footer text-muted">
-                <p className="byline">{props.byline}</p>{props.save}
+                <p className="byline">{props.byline}</p>{props.saved}{props.save}
             </div>
         </div>
     )
