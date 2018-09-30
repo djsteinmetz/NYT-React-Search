@@ -14,7 +14,9 @@ export default {
   },
   save: data => {
     return (
+      console.log('data', data.headline),
       axios.post(`/api/articles`, {
+        key: data._id,
         url: data.url,
         headline: data.headline,
         snippet: data.snippet,

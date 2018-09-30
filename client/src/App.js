@@ -46,9 +46,20 @@ export default class App extends Component {
     }
     API.search(query)
       .then(results => {
-        results.data.response.docs.length ? (this.setState({ articles: results.data.response.docs })) : (this.setState({ articles: [], message: "No results to display, try another search" }))
+        for(var i=0; i<results.data.response.docs.length; i++) {
+          for(var j=0; j<this.state.savedArticles.length; j++) {
+            if(this.state.savedArticles[j].headline === results.data.response.docs[i].headline.main) {
+              results.data.response.docs.splice(i, 1)
+            }
+          }
+        }
+        (results.data.response.docs.length !== 0) ? (this.setState({ articles: results.data.response.docs })) : (this.setState({ articles: [], message: "No results to display, try another search" }))
+        this.loadArticles()
       })
-      .catch(err => { console.log(err) })
+      .catch(err => { 
+        console.log(err);
+        this.setState({articles: [], message: "There was an error with your search, try again!"}) 
+      })
     this.loadArticles()
   }
   saveArticle = event => {
@@ -59,9 +70,11 @@ export default class App extends Component {
     for( var i = 0; i < this.state.articles.length-1; i++){ 
       if ( this.state.articles[i]._id === id) {
         this.state.articles.splice(i, 1); 
+        console.log('removed from searched list')
       }
    }
     const data = {
+      key: selectedArticle[0]._id,
       url: selectedArticle[0].web_url,
       headline: selectedArticle[0].headline.main,
       snippet: selectedArticle[0].snippet,
